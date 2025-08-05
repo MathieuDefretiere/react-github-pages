@@ -703,12 +703,12 @@ export var map0 = (gl, scene, camera) => {
   };
 
   var bulletInterval = interval_create(0.1);
-  var shipBulletInterval = interval_create(5);
-
+  /*   var shipBulletInterval = interval_create(5);
+   */
   var bodies;
   var staticBodies;
-  /*   var staticMeshes;
-   */
+  var staticMeshes;
+
   var phantomSpawnInterval = interval_create(7);
   var scannerSpawnInterval = interval_create(3);
 
