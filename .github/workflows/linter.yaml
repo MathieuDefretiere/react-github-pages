@@ -1,0 +1,16 @@
+name: Ubisoft
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  code-smell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Detect Code Smell
+        run: |
+          npm install
+          npx eslint .
