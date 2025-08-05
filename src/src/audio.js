@@ -40,14 +40,14 @@ var generateNotes = (fn, duration, volume) =>
 
 // Oscillators
 // f: frequency, t: parameter.
-var sin = f => t => Math.sin(t * 2 * Math.PI * f);
+const sin = f => t => Math.sin(t * 2 * Math.PI * f);
 
-var saw = f => t => {
+const saw = f => t => {
   var n = ((t % (1 / f)) * f) % 1;
   return -1 + 2 * n;
 };
 
-var tri = f => t => {
+const tri = f => t => {
   var n = ((t % (1 / f)) * f) % 1;
   return n < 0.5 ? -1 + 2 * (2 * n) : 1 - 2 * (2 * n);
 };
@@ -73,7 +73,7 @@ var noise = () => {
 };
 
 // Operators.
-var add = (a, b) => f => {
+const add = (a, b) => f => {
   var af = a(f);
   var bf = b(f);
 
@@ -87,12 +87,12 @@ var mul = (a, b) => f => {
   return (t, i, a) => af(t, i, a) * bf(t, i, a);
 };
 
-var scale = (fn, n) => f => {
+const scale = (fn, n) => f => {
   var fnf = fn(f);
   return (t, i, a) => n * fnf(t, i, a);
 };
 
-var slide = (fn, slide) => f => (t, i, a) =>
+const slide = (fn, slide) => f => (t, i, a) =>
   fn(f + (i / a.length) * slide)(t, i, a);
 
 var pitchJump = (fn, pitchJump, pitchJumpTime) => f => (t, i, a) =>
