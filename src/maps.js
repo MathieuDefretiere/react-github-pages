@@ -86,6 +86,9 @@ var _q0 = quat_create();
 var _v0 = vec3_create();
 var _v1 = vec3_create();
 
+let classment = '';
+let img = './';
+
 export var map0 = (gl, scene, camera) => {
   var map = object3d_create();
   object3d_add(scene, map);
@@ -216,6 +219,13 @@ export var map0 = (gl, scene, camera) => {
   );
 
   // Bridges.
+  [
+    // [[0, 52, -240], [192, 52, -240], 64, 8]
+  ].map(([start, end, width, height]) =>
+    createStaticMeshFromGeometry(
+      bridge_create(vec3_create(...start), vec3_create(...end), width, height),
+    ),
+  );
   [
     // [[0, 52, -240], [192, 52, -240], 64, 8]
   ].map(([start, end, width, height]) =>
@@ -367,11 +377,29 @@ export var map0 = (gl, scene, camera) => {
     return bullet;
   };
 
+  let argent = [];
   var takeDamage = (damage = 2) => {
     health -= damage;
+    console.log(health);
+
     if (health <= 0) {
       document.exitPointerLock();
       document.querySelector('.e').hidden = false;
+      document.querySelector('.e').innerHTML = `
+    <div class= "loose">
+     <span>Vous avez perdu <br> ${score} ${classment} </span>
+     <img src=${img} alt="rank-name"/>
+     <button class="n" onclick="location.reload()">Restart</button>
+    <div>`;
+
+      if (classment == 'argent') {
+        argent.push(score);
+        sessionStorage.setItem(classment, argent);
+      }
+    }
+
+    if (health <= 30) {
+      document.body.style.background = 'red';
     }
   };
 
@@ -379,7 +407,8 @@ export var map0 = (gl, scene, camera) => {
     var PHANTOM_STATE_NONE = 0;
     /*     var PHANTOM_STATE_IDLE = 1;
      */ var PHANTOM_STATE_ALERT = 2;
-    /*    var PHANTOM_STATE_SHOOT = 3;
+    /*    
+    var PHANTOM_STATE_SHOOT = 3;
     var PHANTOM_STATE_MELEE = 4; */
 
     var PHANTOM_Y = 52;
@@ -394,10 +423,10 @@ export var map0 = (gl, scene, camera) => {
     var stopSpeed = 100;
     var friction = 6;
 
-    var enemyBulletInterval = interval_create(1.1);
+    var enemyBulletInterval = interval_create(5.588);
 
     var mesh = entity_add(
-      enemyHealth_create(physics_add(createPhantomMesh(), BODY_DYNAMIC), 5),
+      enemyHealth_create(physics_add(createPhantomMesh(), BODY_DYNAMIC), 10),
       component_create(dt => {
         if (state === PHANTOM_STATE_NONE && findTarget(mesh, playerMesh)) {
           state === PHANTOM_STATE_ALERT;
@@ -458,7 +487,7 @@ export var map0 = (gl, scene, camera) => {
           if (DEBUG) {
             var debugMeshes = debugPoints(
               [mesh.position, [0, 1, 0]],
-              [positionStart, [0, 1, 0]],
+              [positionStart, [0, 15, 0]],
               [positionEnd, [0, 1, 0]],
             );
 
@@ -709,7 +738,7 @@ export var map0 = (gl, scene, camera) => {
   var staticBodies;
   var staticMeshes;
 
-  var phantomSpawnInterval = interval_create(7);
+  let phantomSpawnInterval = interval_create(7);
   var scannerSpawnInterval = interval_create(3);
 
   entity_add(
@@ -749,8 +778,46 @@ export var map0 = (gl, scene, camera) => {
       updateShadowCamera();
 
       health = clamp(health + 1 * dt, 0, 100);
+      console.log(score);
+
+      console.log(img);
+
+      if (score <= 2000) {
+        classment = 'Bronze';
+        img = './images/iron.webp';
+      } else if (score > 2000 && score <= 4000) {
+        img = './images/bronze.webp';
+        classment = 'argent';
+      } else if (score > 4000 && score <= 6000) {
+        img = './images/gold.webp';
+
+        classment = 'gold';
+      } else if (score > 6000 && score <= 8000) {
+        img = './images/platine.webp';
+        classment = 'platine';
+      } else if (score > 8000 && score <= 10000) {
+        img = './images/emeraude.webp';
+        classment = 'emeraude';
+      } else if (score > 10000 && score <= 12000) {
+        img = './images/diams.webp';
+        classment = 'platine';
+      } else if (score > 10000 && score <= 11000) {
+        img = './images/master.webp';
+        classment = 'master';
+      } else if (score > 11000 && score <= 13000) {
+        img = './images/grandmaster.png';
+        classment = 'grandmaster';
+      } else if (score > 13000) {
+        img = './images/challenger.webp';
+        classment = 'challenger';
+      }
       document.querySelector('.h').textContent = Math.round(health);
-      document.querySelector('.s').textContent = score;
+      document.querySelector('.s').innerHTML = `  
+      <div class = "rank">  
+      <img src=${img} alt="rank-name"/>
+      ${classment}
+        ${score}
+      </div> `;
 
       if (playerMesh.position.y <= -2048) {
         takeDamage(100);

@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>js13k-2021</title>
 
     <style>
@@ -88,17 +88,57 @@
         font-size: 2rem;
         font-family: inherit;
       }
+      .switch {
+        display: block !important;
+      }
+      .stop {
+        padding: 15px;
+        background-color: #fff;
+        color: black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      img {
+        width: 200px;
+        height: 200px;
+      }
+      .rank {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        filter: brightness(2);
+      }
+      .loose {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5%;
+        width: 400px;
+        color: white;
+        background-color: #0f0f0f4d;
+      }
+      span {
+        font-size: 2rem;
+      }
     </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <h1>Two<br>Spaceships<br>Passing<br>In The<br>Night</h1>
-    <div class="r">&#11041;</div>
+    <h1>Two<br />Spaceships<br />Passing<br />In The<br />Night</h1>
+    <div class="r material-symbols-outlined">&#11041;</div>
+
     <div class="h"></div>
     <div class="s"></div>
     <div class="e" hidden>
-      <div>Game over</div><button class="n" onclick="location.reload()">Restart</button>
+      <div>Game over</div>
+      <button class="n" onclick="location.reload()">Restart</button>
     </div>
+
+    <div class="stop" style="display: none">tu es en pause</div>
     <script type="module" src="./src/index.js"></script>
   </body>
 </html>

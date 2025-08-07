@@ -308,11 +308,18 @@ addEventListener('resize', () => {
   setSize(innerWidth, innerHeight);
   render();
 });
+const stop = document.querySelector('.stop');
 
 addEventListener('keypress', event => {
   // Pause/play.
+
   if (event.code === 'KeyP') {
     running = !running;
+
+    console.log(stop);
+
+    stop.classList.toggle('switch');
+
     console.log('ccccc');
 
     if (running) {
@@ -326,6 +333,7 @@ addEventListener('keypress', event => {
 addEventListener('click', () => {
   if (!running) {
     console.log('ccccc');
+    stop.classList.remove('switch');
 
     running = true;
     animate();
