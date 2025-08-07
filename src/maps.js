@@ -1,7 +1,7 @@
 import { findTarget, getRange, RANGE_MELEE } from './ai.js';
 import { playEnemyDeath, playShoot } from './audio.js';
 import { boxGeom_create } from './boxGeom.js';
-import { nx_ny, ny } from './boxIndices.js';
+import { nx_ny, ny, ny_nz } from './boxIndices.js';
 import { align } from './boxTransforms.js';
 import { DEBUG, gravity } from './constants.js';
 import { light_create } from './directionalLight.js';
@@ -21,6 +21,7 @@ import {
   dreadnought_create,
   explosion_create,
   phantom_create,
+  laser_create,
   platform_create,
   scanner_create,
   spaceBetween,
@@ -98,7 +99,7 @@ export var map0 = (gl, scene, camera) => {
   object3d_add(map, directional);
 
   // Camera
-  camera.far = 16384;
+  camera.far = 400;
   var cameraObject = object3d_create();
   object3d_add(cameraObject, camera);
   object3d_add(map, cameraObject);
@@ -113,7 +114,7 @@ export var map0 = (gl, scene, camera) => {
     ),
     BODY_DYNAMIC,
   );
-  playerMesh.position.y += playerHeight / 2;
+  playerMesh.position.y += playerHeight / 6;
   playerMesh.visible = false;
   Object.assign(cameraObject.position, playerMesh.position);
   object3d_add(map, playerMesh);
@@ -148,16 +149,37 @@ export var map0 = (gl, scene, camera) => {
 
   var createStaticMeshFromGeometry = geometry => {
     var material = material_create();
-    vec3_set(material.color, 0.7, 0.7, 0.75);
+    vec3_set(material.color, 0.75, 0.75, 0.75);
     var mesh = physics_add(mesh_create(geometry, material), BODY_STATIC);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     object3d_add(map, mesh);
     return mesh;
   };
+//ajouter ca 
+  [ 
+    [[10, 400, 1500], [-700, 0, 0], [align(nx_ny)]],
+    [[10, 400, 1500], [700, 0, 0], [align(nx_ny)]],
+     [[10, 400, 1500], [700, 0, 0], [align(nx_ny)]],
+  
+       [[1500, 400, 20], [-700, 0, 750], [align(nx_ny)]],
+         [[1500, 400, 20], [-700, 0, -750], [align(nx_ny)]],
+   
 
-  [
-    [[160, 128, 256], [-512, 0, 128], [align(nx_ny)]],
+
+    [[10, 40, 70], [-500, 0, 0], [align(nx_ny)]],
+    [[10, 40, 70], [-500, 0, 150], [align(nx_ny)]],
+     [[10, 40, 70], [-500, 0, 300], [align(nx_ny)]],
+   
+
+
+
+
+
+
+   
+
+    
   ].map(([dimensions, position, transforms = [align(ny)]]) =>
     vec3_set(
       createStaticMeshFromGeometry(box(dimensions, ...transforms)).position,
@@ -168,7 +190,7 @@ export var map0 = (gl, scene, camera) => {
   // Platforms
   [
     [
-      [1024, 16, 768, 8],
+      [1500, 16, 1500, 8],
       [0, 0, 0],
     ],
     [
@@ -217,7 +239,7 @@ export var map0 = (gl, scene, camera) => {
 
   // Bridges.
   [
-    // [[0, 52, -240], [192, 52, -240], 64, 8]
+    [[0, 52, -240], [192, 52, -240], 64, 8]
   ].map(([start, end, width, height]) =>
     createStaticMeshFromGeometry(
       bridge_create(vec3_create(...start), vec3_create(...end), width, height),
@@ -552,7 +574,7 @@ export var map0 = (gl, scene, camera) => {
     var minPlayerDistance = randFloat(64, 128);
 
     // CNPC_Manhack:MaintainGroundHeight
-    var minGroundHeight = 32;
+    var minGroundHeight = 200;
 
     var mesh = entity_add(
       enemyHealth_create(physics_add(createScannerMesh(), BODY_DYNAMIC), 2),
@@ -709,7 +731,7 @@ export var map0 = (gl, scene, camera) => {
   var staticBodies;
   var staticMeshes;
 
-  var phantomSpawnInterval = interval_create(7);
+  var phantomSpawnInterval = interval_create(4);
   var scannerSpawnInterval = interval_create(3);
 
   entity_add(
@@ -759,7 +781,7 @@ export var map0 = (gl, scene, camera) => {
       if (bulletInterval(dt, isMouseDown)) {
         playShoot();
 
-        var bulletGeometry = boxGeom_create(2, 2, 8);
+        var bulletGeometry = boxGeom_create(2, 2, 8); //player bullet
         var bulletMaterial = material_create();
         vec3_set(bulletMaterial.emissive, 0.5, 0.5, 2);
 

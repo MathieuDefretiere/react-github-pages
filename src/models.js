@@ -276,7 +276,7 @@ export var dreadnought_create = () => {
   );
 };
 
-var explosionGeometry = box([0.5, 0.5, 1]);
+var explosionGeometry = box([1.5, 1.5, 6]);
 var explosionMaterials = [
   [1, 1, 1],
   [1, 0.75, 0],
@@ -492,6 +492,71 @@ export var phantom_create = () => {
 
   return mergeAll(head, rightSide, leftSide, eye);
 };
+export var laser_create = () => {
+  var width = 80;
+  var height = 144;
+  var depth = 16;
+  var gap = 4;
+
+  var sideWidth = (width - gap) / 2;
+  var sideHeight = 56;
+
+  var eyeColor = vec3_create(16, 1, 1);
+  var eyeSize = 16;
+
+  var head = box(
+    [width, height - sideHeight - gap, depth],
+    align(ny),
+    $translate(
+      [all, { y: sideHeight + gap }],
+      [px_py, { x: -width / 2 }],
+      [nx_py, { x: width / 2 }],
+      [py_pz, { z: -depth }],
+      [px_ny_pz, { x: -width / 2 }],
+      [nx_ny_pz, { x: width / 2 }],
+      [ny_pz, { y: -2 * gap }],
+    ),
+  );
+  var rightSide = box(
+    [sideWidth, sideHeight, depth],
+    align(px_ny),
+    $translate(
+      [all, { x: -gap / 2 }],
+      [nx_ny, { x: sideWidth }],
+      [px_py, { y: -2 * gap }],
+      [ny_pz, { z: -depth }],
+      [nx_py_pz, { z: -depth }],
+    ),
+  );
+  var leftSide = box(
+    [sideWidth, sideHeight, depth],
+    align(nx_ny),
+    $translate(
+      [all, { x: gap / 2 }],
+      [px_ny, { x: -sideWidth }],
+      [nx_py, { y: -2 * gap }],
+      [ny_pz, { z: -depth }],
+      [px_py_pz, { z: -depth }],
+    ),
+  );
+
+  var eye = box(
+    [eyeSize, eyeSize, eyeSize],
+    geom =>
+      geom_applyQuaternion(
+        geom,
+        quat_setFromEuler(
+          _quat,
+          vec3_set(_vector, Math.PI / 4, -Math.PI / 4, 0),
+        ),
+      ),
+    faceColors([face_px, eyeColor], [face_py, eyeColor], [face_pz, eyeColor]),
+    translate(0, sideHeight - gap / 2, -depth / 4),
+  );
+
+  return mergeAll(head, rightSide, leftSide, eye);
+};
+
 
 export var platform_create = (width, height, depth, strokeWidth) => {
   var innerWidth = width - 4 * strokeWidth;
@@ -516,7 +581,7 @@ export var platform_create = (width, height, depth, strokeWidth) => {
   );
 
   var strokeDimensions = [strokeWidth, height, strokeWidth];
-  var strokeColor = colors([all, [0.4, 0.4, 0.5]]);
+  var strokeColor = colors([all, [600,0.30,0.30]]);
   var halfStrokeWidth = strokeWidth / 2;
 
   return mergeAll(
@@ -595,7 +660,7 @@ export var platform_create = (width, height, depth, strokeWidth) => {
 };
 
 export var scanner_create = () => {
-  var size = 16;
+  var size = 32;
   var length = 32;
   var headLength = 6;
   var eyeColor = vec3_create(16, 1, 1);
