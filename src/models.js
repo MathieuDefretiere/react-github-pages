@@ -430,52 +430,57 @@ export var greeble_create = (() => {
 
 export var phantom_create = () => {
   var width = 40;
-  var height = 72;
-  var depth = 16;
+  var height = 200;
+  var depth = 106;
   var gap = 4;
 
   var sideWidth = (width - gap) / 2;
   var sideHeight = 56;
 
-  var eyeColor = vec3_create(16, 1, 1);
-  var eyeSize = 8;
+  var eyeColor = vec3_create(300, 1, 1); 
+  var eyeSize = 12; 
 
+ 
   var head = box(
-    [width, height - sideHeight - gap, depth],
+    [width * 1.2, height - sideHeight, depth * 0.8],
     align(ny),
     $translate(
-      [all, { y: sideHeight + gap }],
+      [all, { y: sideHeight + gap * 2 }],
       [px_py, { x: -width / 2 }],
       [nx_py, { x: width / 2 }],
-      [py_pz, { z: -depth }],
+      [py_pz, { z: -depth * 0.8 }],
       [px_ny_pz, { x: -width / 2 }],
       [nx_ny_pz, { x: width / 2 }],
-      [ny_pz, { y: -2 * gap }],
-    ),
-  );
-  var rightSide = box(
-    [sideWidth, sideHeight, depth],
-    align(px_ny),
-    $translate(
-      [all, { x: -gap / 2 }],
-      [nx_ny, { x: sideWidth }],
-      [px_py, { y: -2 * gap }],
-      [ny_pz, { z: -depth }],
-      [nx_py_pz, { z: -depth }],
-    ),
-  );
-  var leftSide = box(
-    [sideWidth, sideHeight, depth],
-    align(nx_ny),
-    $translate(
-      [all, { x: gap / 2 }],
-      [px_ny, { x: -sideWidth }],
-      [nx_py, { y: -2 * gap }],
-      [ny_pz, { z: -depth }],
-      [px_py_pz, { z: -depth }],
+      [ny_pz, { y: -gap * 3 }],
     ),
   );
 
+
+  var rightSide = box(
+    [sideWidth * 1.5, sideHeight, depth * 0.7],
+    align(px_ny),
+    $translate(
+      [all, { x: -gap }],
+      [nx_ny, { x: sideWidth * 1.5 }],
+      [px_py, { y: -gap * 2 }],
+      [ny_pz, { z: -depth * 0.7 }],
+      [nx_py_pz, { z: -depth * 0.7 }],
+    ),
+  );
+
+  var leftSide = box(
+    [sideWidth * 1.5, sideHeight, depth * 0.7],
+    align(nx_ny),
+    $translate(
+      [all, { x: gap }],
+      [px_ny, { x: -sideWidth * 1.5 }],
+      [nx_py, { y: -gap * 2 }],
+      [ny_pz, { z: -depth * 0.7 }],
+      [px_py_pz, { z: -depth * 0.7 }],
+    ),
+  );
+
+ 
   var eye = box(
     [eyeSize, eyeSize, eyeSize],
     geom =>
@@ -483,15 +488,20 @@ export var phantom_create = () => {
         geom,
         quat_setFromEuler(
           _quat,
-          vec3_set(_vector, Math.PI / 4, -Math.PI / 4, 0),
+          vec3_set(_vector, Math.PI / 6, -Math.PI / 3, 0), 
         ),
       ),
-    faceColors([face_px, eyeColor], [face_py, eyeColor], [face_pz, eyeColor]),
-    translate(0, sideHeight - gap / 2, -depth / 4),
+    faceColors(
+      [face_px, eyeColor],
+      [face_py, eyeColor],
+      [face_pz, eyeColor],
+    ),
+    translate(0, sideHeight, -depth / 3),
   );
 
   return mergeAll(head, rightSide, leftSide, eye);
 };
+
 export var laser_create = () => {
   var width = 80;
   var height = 144;
@@ -663,26 +673,44 @@ export var scanner_create = () => {
   var size = 32;
   var length = 32;
   var headLength = 6;
-  var eyeColor = vec3_create(16, 1, 1);
+  var eyeColor = vec3_create(200, 0.9, 1); 
 
+ 
   var head = box(
-    [size, size, headLength],
-    $scale([pz, { x: 0.5, y: 0.5 }]),
+    [size * 0.9, size * 0.9, headLength * 1.2],
+    $scale([pz, { x: 0.6, y: 0.6 }]), 
     faceColors([face_pz, eyeColor]),
     deleteFaces(face_nz),
   );
+
+
+  var lensRing = box(
+    [size * 1.1, size * 1.1, headLength * 0.4],
+    relativeAlign(pz, head, pz),
+    $scale([pz, { x: 1, y: 1 }]),
+    faceColors([face_pz, vec3_create(0, 0, 0.2)]),
+    deleteFaces(face_nz),
+  );
+
+
+  var tail = box(
+    [size * 0.5, size * 0.5, length - headLength],
+    relativeAlign(pz, head, nz),
+    $scale([nz, { x: 0.2, y: 0.2 }]),
+    deleteFaces(face_pz),
+  );
+
+  
+  var tailGlow = box(
+    [size * 0.3, size * 0.3, headLength * 0.5],
+    relativeAlign(nz, tail, nz),
+    faceColors([face_nz, vec3_create(50, 1, 1)]), 
+    deleteFaces(face_pz),
+  );
+
   return geom_applyQuaternion(
-    mergeAll(
-      head,
-      // Tail
-      box(
-        [size, size, length - headLength],
-        relativeAlign(pz, head, nz),
-        $scale([nz, { x: 0, y: 0 }]),
-        deleteFaces(face_pz),
-      ),
-    ),
-    quat_setFromEuler(_quat, vec3_set(_vector, 0, 0, Math.PI / 4)),
+    mergeAll(head, lensRing, tail, tailGlow),
+    quat_setFromEuler(_quat, vec3_set(_vector, 0, 0, Math.PI / 4)), 
   );
 };
 

@@ -118,6 +118,8 @@ export var map0 = (gl, scene, camera) => {
   playerMesh.visible = false;
   Object.assign(cameraObject.position, playerMesh.position);
   object3d_add(map, playerMesh);
+  
+  
 
   var playerPhysics = get_physics_component(playerMesh);
   playerPhysics.update = () => {};
@@ -156,106 +158,103 @@ export var map0 = (gl, scene, camera) => {
     object3d_add(map, mesh);
     return mesh;
   };
-//ajouter ca 
-  [ 
-    [[10, 400, 1500], [-700, 0, 0], [align(nx_ny)]],
-    [[10, 400, 1500], [700, 0, 0], [align(nx_ny)]],
-     [[10, 400, 1500], [700, 0, 0], [align(nx_ny)]],
-  
-       [[1500, 400, 20], [-700, 0, 750], [align(nx_ny)]],
-         [[1500, 400, 20], [-700, 0, -750], [align(nx_ny)]],
-   
+
+[
+  [[200, 200, 200], [0, 200, 0]], 
+
+  [[150, 150, 150], [0, 350, 0]], 
+  [[100, 100, 100], [0, 500, 0]],  
+].map(([dimensions, position]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(box(dimensions)).position,
+    ...position
+  )
+);
 
 
-    [[10, 40, 70], [-500, 0, 0], [align(nx_ny)]],
-    [[10, 40, 70], [-500, 0, 150], [align(nx_ny)]],
-     [[10, 40, 70], [-500, 0, 300], [align(nx_ny)]],
-   
+[
+  [[50, 75, 100], [150, 37.5, 0]],      
+  [[50, 75, 100], [-150, 37.5, 0]],     
+  [[100, 25, 150], [0, 12.5, 200]],     
+  [[100, 25, 150], [0, 12.5, -200]],    
+].map(([dimensions, position]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(box(dimensions)).position,
+    ...position
+  )
+);
+
+
+[
+  [[1500, 16, 1500, 8], [0, 0, 0]],      
+  [[256, 16, 256, 8], [300, 16, -300]],  
+  [[256, 16, 256, 8], [-300, 16, 300]],   
+  [[200, 16, 200, 8], [0, 100, 0]],       
+  [[128, 16, 128, 8], [400, 200, -200]],   
+  [[128, 16, 128, 8], [-400, 200, 200]],   
+  [[100, 16, 100, 8], [0, 350, 300]],     
+].map(([dimensions, position]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(platform_create(...dimensions)).position,
+    ...position
+  )
+);
+
+
+[
+  [[0, 100, 0], [300, 16, -300], 64, 8],
+  [[0, 100, 0], [-300, 16, 300], 64, 8],
+  [[0, 100, 0], [400, 200, -200], 48, 6], 
+  [[0, 100, 0], [-400, 200, 200], 48, 6],  
+  [[150, 350, 0], [0, 350, 300], 32, 6],   
+].map(([start, end, width, height]) =>
+  createStaticMeshFromGeometry(
+    bridge_create(vec3_create(...start), vec3_create(...end), width, height)
+  )
+);
+
+
+[
+  [[400, 0, 400], [24, 200, 24]],
+  [[-400, 0, 400], [24, 200, 24]],
+  [[400, 0, -400], [24, 200, 24]],
+  [[-400, 0, -400], [24, 200, 24]],
+].map(([position, dimensions]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(column_create(...dimensions)).position,
+    ...position
+  )
+);
+
+
+[
+  [[20, 200, 1500], [-760, 100, 0]],   
+  [[20, 200, 1500], [760, 100, 0]],     
+  [[1500, 200, 20], [0, 100, 760]],     
+  [[1500, 200, 20], [0, 100, -760]],    
+].map(([dimensions, position]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(box(dimensions)).position,
+    ...position
+  )
+);
+
+
+[
+  [[100, 150, 100], [500, 75, -500]],
+  [[120, 180, 120], [-500, 90, -400]],
+  [[80, 100, 80], [400, 50, 500]],
+  [[90, 120, 90], [-400, 60, 400]],
+].map(([dimensions, position]) =>
+  vec3_set(
+    createStaticMeshFromGeometry(box(dimensions)).position,
+    ...position
+  )
+);
 
 
 
-
-
-
-   
-
-    
-  ].map(([dimensions, position, transforms = [align(ny)]]) =>
-    vec3_set(
-      createStaticMeshFromGeometry(box(dimensions, ...transforms)).position,
-      ...position,
-    ),
-  );
-
-  // Platforms
-  [
-    [
-      [1500, 16, 1500, 8],
-      [0, 0, 0],
-    ],
-    [
-      [128, 8, 256, 8],
-      [256, 48, -240],
-    ],
-    [
-      [128, 8, 172, 8],
-      [-256, 16, -192],
-    ],
-    [
-      [160, 8, 246, 8],
-      [128, 160, 0],
-    ],
-    [
-      [512, 8, 352, 8],
-      [0, 32, -544],
-    ],
-    [
-      [128, 8, 128, 8],
-      [256, 64, 0],
-    ],
-    [
-      [128, 8, 160, 8],
-      [320, 96, 144],
-    ],
-    [
-      [480, 8, 128, 8],
-      [0, 128, 256],
-    ],
-    // Center
-    [
-      [128, 24, 128, 8],
-      [-160, 12, 0],
-    ],
-    [
-      [128, 24, 128, 8],
-      [-160, 96, 0],
-    ],
-  ].map(([dimensions, position]) =>
-    vec3_set(
-      createStaticMeshFromGeometry(platform_create(...dimensions)).position,
-      ...position,
-    ),
-  );
-
-  // Bridges.
-  [
-    [[0, 52, -240], [192, 52, -240], 64, 8]
-  ].map(([start, end, width, height]) =>
-    createStaticMeshFromGeometry(
-      bridge_create(vec3_create(...start), vec3_create(...end), width, height),
-    ),
-  );
-
-  // Columns.
-  spaceBetween(256, 0, 4)
-    .map(z => [-340, 0, z])
-    .map(position =>
-      vec3_set(
-        createStaticMeshFromGeometry(column_create(24, 128)).position,
-        ...position,
-      ),
-    );
-
+ 
   var starfieldMaterial = material_create();
   vec3_setScalar(starfieldMaterial.emissive, 1);
   starfieldMaterial.fog = false;
@@ -264,6 +263,19 @@ export var map0 = (gl, scene, camera) => {
     mesh_create(starfield_create(15360, 512), starfieldMaterial),
   );
 
+
+  var dreadnoughtMaterial = material_create();
+  vec3_setScalar(dreadnoughtMaterial.specular, 1);
+  dreadnoughtMaterial.fog = false;  
+  var starfieldMaterial = material_create();
+  vec3_setScalar(starfieldMaterial.emissive, 1);
+  starfieldMaterial.fog = false;
+  object3d_add(
+    cameraObject,
+    mesh_create(starfield_create(15360, 512), starfieldMaterial),
+  );
+
+  
   var dreadnoughtMaterial = material_create();
   vec3_setScalar(dreadnoughtMaterial.specular, 1);
   dreadnoughtMaterial.fog = false;
@@ -273,6 +285,52 @@ export var map0 = (gl, scene, camera) => {
   object3d_rotateX(dreadnoughtMesh, -Math.PI / 8);
   object3d_rotateZ(dreadnoughtMesh, -Math.PI / 4);
   object3d_add(map, dreadnoughtMesh);
+
+  
+  [ [0, 300, 0], [200, 350, -200], [-250, 400, 250] ].map(position =>
+    vec3_set(
+      createStaticMeshFromGeometry(box([20, 20, 20])).position,
+      ...position,
+    ),
+  );
+
+  
+  [
+    [[100, 400, 100], [600, 0, 600]],
+    [[80, 300, 80], [-600, 0, -600]],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
+  var dreadnoughtMesh = mesh_create(dreadnought_create(), dreadnoughtMaterial);
+  vec3_set(dreadnoughtMesh.position, 512, 1536, -6144);
+  object3d_rotateY(dreadnoughtMesh, -Math.PI / 2);
+  object3d_rotateX(dreadnoughtMesh, -Math.PI / 8);
+  object3d_rotateZ(dreadnoughtMesh, -Math.PI / 4);
+  object3d_add(map, dreadnoughtMesh);
+
+  
+  [ [0, 300, 0], [200, 350, -200], [-250, 400, 250] ].map(position =>
+    vec3_set(
+      createStaticMeshFromGeometry(box([20, 20, 20])).position,
+      ...position,
+    ),
+  );
+
+ 
+  [
+    [[100, 400, 100], [600, 0, 600]],
+    [[80, 300, 80], [-600, 0, -600]],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
 
   /*
   var createHealthPack = () => {
