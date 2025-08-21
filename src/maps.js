@@ -88,6 +88,8 @@ var _v1 = vec3_create();
 
 let classment = '';
 let img = './';
+var health = 100;
+export const leheal = health;
 
 export var map0 = (gl, scene, camera) => {
   var map = object3d_create();
@@ -126,7 +128,6 @@ export var map0 = (gl, scene, camera) => {
   var player = player_create(playerMesh, playerPhysics);
   player.scene = map;
 
-  var health = 100;
   var score = 0;
 
   var updateShadowCamera = () => {
@@ -151,65 +152,88 @@ export var map0 = (gl, scene, camera) => {
 
   var createStaticMeshFromGeometry = geometry => {
     var material = material_create();
-    vec3_set(material.color, 0.7, 0.7, 0.75);
+    vec3_set(material.color, 0.75, 0.75, 0.75);
     var mesh = physics_add(mesh_create(geometry, material), BODY_STATIC);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     object3d_add(map, mesh);
     return mesh;
   };
+  //ajouter ca
 
   [
-    [[160, 128, 256], [-512, 0, 128], [align(nx_ny)]],
-  ].map(([dimensions, position, transforms = [align(ny)]]) =>
+    [
+      [200, 200, 200],
+      [0, 200, 0],
+    ],
+
+    [
+      [150, 150, 150],
+      [0, 350, 0],
+    ],
+    [
+      [100, 100, 100],
+      [0, 500, 0],
+    ],
+  ].map(([dimensions, position]) =>
     vec3_set(
-      createStaticMeshFromGeometry(box(dimensions, ...transforms)).position,
+      createStaticMeshFromGeometry(box(dimensions)).position,
       ...position,
     ),
   );
 
-  // Platforms
   [
     [
-      [1024, 16, 768, 8],
+      [50, 75, 100],
+      [150, 37.5, 0],
+    ],
+    [
+      [50, 75, 100],
+      [-150, 37.5, 0],
+    ],
+    [
+      [100, 25, 150],
+      [0, 12.5, 200],
+    ],
+    [
+      [100, 25, 150],
+      [0, 12.5, -200],
+    ],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
+  [
+    [
+      [1500, 16, 1500, 8],
       [0, 0, 0],
     ],
     [
-      [128, 8, 256, 8],
-      [256, 48, -240],
+      [256, 16, 256, 8],
+      [300, 16, -300],
     ],
     [
-      [128, 8, 172, 8],
-      [-256, 16, -192],
+      [256, 16, 256, 8],
+      [-300, 16, 300],
     ],
     [
-      [160, 8, 246, 8],
-      [128, 160, 0],
+      [200, 16, 200, 8],
+      [0, 100, 0],
     ],
     [
-      [512, 8, 352, 8],
-      [0, 32, -544],
+      [128, 16, 128, 8],
+      [400, 200, -200],
     ],
     [
-      [128, 8, 128, 8],
-      [256, 64, 0],
+      [128, 16, 128, 8],
+      [-400, 200, 200],
     ],
     [
-      [128, 8, 160, 8],
-      [320, 96, 144],
-    ],
-    [
-      [480, 8, 128, 8],
-      [0, 128, 256],
-    ],
-    // Center
-    [
-      [128, 24, 128, 8],
-      [-160, 12, 0],
-    ],
-    [
-      [128, 24, 128, 8],
-      [-160, 96, 0],
+      [100, 16, 100, 8],
+      [0, 350, 300],
     ],
   ].map(([dimensions, position]) =>
     vec3_set(
@@ -218,32 +242,101 @@ export var map0 = (gl, scene, camera) => {
     ),
   );
 
-  // Bridges.
   [
-    // [[0, 52, -240], [192, 52, -240], 64, 8]
-  ].map(([start, end, width, height]) =>
-    createStaticMeshFromGeometry(
-      bridge_create(vec3_create(...start), vec3_create(...end), width, height),
-    ),
-  );
-  [
-    // [[0, 52, -240], [192, 52, -240], 64, 8]
+    [[0, 100, 0], [300, 16, -300], 64, 8],
+    [[0, 100, 0], [-300, 16, 300], 64, 8],
+    [[0, 100, 0], [400, 200, -200], 48, 6],
+    [[0, 100, 0], [-400, 200, 200], 48, 6],
+    [[150, 350, 0], [0, 350, 300], 32, 6],
   ].map(([start, end, width, height]) =>
     createStaticMeshFromGeometry(
       bridge_create(vec3_create(...start), vec3_create(...end), width, height),
     ),
   );
 
-  // Columns.
-  spaceBetween(256, 0, 4)
-    .map(z => [-340, 0, z])
-    .map(position =>
-      vec3_set(
-        createStaticMeshFromGeometry(column_create(24, 128)).position,
-        ...position,
-      ),
-    );
+  [
+    [
+      [400, 0, 400],
+      [24, 200, 24],
+    ],
+    [
+      [-400, 0, 400],
+      [24, 200, 24],
+    ],
+    [
+      [400, 0, -400],
+      [24, 200, 24],
+    ],
+    [
+      [-400, 0, -400],
+      [24, 200, 24],
+    ],
+  ].map(([position, dimensions]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(column_create(...dimensions)).position,
+      ...position,
+    ),
+  );
 
+  [
+    [
+      [20, 200, 1500],
+      [-760, 100, 0],
+    ],
+    [
+      [20, 200, 1500],
+      [760, 100, 0],
+    ],
+    [
+      [1500, 200, 20],
+      [0, 100, 760],
+    ],
+    [
+      [1500, 200, 20],
+      [0, 100, -760],
+    ],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
+  [
+    [
+      [100, 150, 100],
+      [500, 75, -500],
+    ],
+    [
+      [120, 180, 120],
+      [-500, 90, -400],
+    ],
+    [
+      [80, 100, 80],
+      [400, 50, 500],
+    ],
+    [
+      [90, 120, 90],
+      [-400, 60, 400],
+    ],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
+  var starfieldMaterial = material_create();
+  vec3_setScalar(starfieldMaterial.emissive, 1);
+  starfieldMaterial.fog = false;
+  object3d_add(
+    cameraObject,
+    mesh_create(starfield_create(15360, 512), starfieldMaterial),
+  );
+
+  var dreadnoughtMaterial = material_create();
+  vec3_setScalar(dreadnoughtMaterial.specular, 1);
+  dreadnoughtMaterial.fog = false;
   var starfieldMaterial = material_create();
   vec3_setScalar(starfieldMaterial.emissive, 1);
   starfieldMaterial.fog = false;
@@ -261,6 +354,67 @@ export var map0 = (gl, scene, camera) => {
   object3d_rotateX(dreadnoughtMesh, -Math.PI / 8);
   object3d_rotateZ(dreadnoughtMesh, -Math.PI / 4);
   object3d_add(map, dreadnoughtMesh);
+
+  [
+    [0, 300, 0],
+    [200, 350, -200],
+    [-250, 400, 250],
+  ].map(position =>
+    vec3_set(
+      createStaticMeshFromGeometry(box([20, 20, 20])).position,
+      ...position,
+    ),
+  );
+
+  [
+    [
+      [100, 400, 100],
+      [600, 0, 600],
+    ],
+    [
+      [80, 300, 80],
+      [-600, 0, -600],
+    ],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
+
+  var dreadnoughtMesh = mesh_create(dreadnought_create(), dreadnoughtMaterial);
+  vec3_set(dreadnoughtMesh.position, 512, 1536, -6144);
+  object3d_rotateY(dreadnoughtMesh, -Math.PI / 2);
+  object3d_rotateX(dreadnoughtMesh, -Math.PI / 8);
+  object3d_rotateZ(dreadnoughtMesh, -Math.PI / 4);
+  object3d_add(map, dreadnoughtMesh);
+
+  [
+    [0, 300, 0],
+    [200, 350, -200],
+    [-250, 400, 250],
+  ].map(position =>
+    vec3_set(
+      createStaticMeshFromGeometry(box([20, 20, 20])).position,
+      ...position,
+    ),
+  );
+
+  [
+    [
+      [100, 400, 100],
+      [600, 0, 600],
+    ],
+    [
+      [80, 300, 80],
+      [-600, 0, -600],
+    ],
+  ].map(([dimensions, position]) =>
+    vec3_set(
+      createStaticMeshFromGeometry(box(dimensions)).position,
+      ...position,
+    ),
+  );
 
   /*
   var createHealthPack = () => {
@@ -380,22 +534,50 @@ export var map0 = (gl, scene, camera) => {
   let argent = [];
   var takeDamage = (damage = 2) => {
     health -= damage;
+
     console.log(health);
 
+    console.log(score);
+
+    if (score > 2000 && score <= 4000) {
+      damage = 5;
+      health -= damage;
+    }
+    if (score > 6000 && score <= 8000) {
+      damage = 10;
+      health -= damage;
+    }
+    if (score > 4000 && score <= 7000) {
+      damage = 12.5;
+      health -= damage;
+    }
+    if (score > 7000 && score <= 9000) {
+      damage = 15;
+      health -= damage;
+    }
+    if (score > 9000 && score <= 11000) {
+      damage = 17.5;
+      health -= damage;
+    }
+    if (score > 11000) {
+      damage = 20;
+      health -= damage;
+    }
+
     if (health <= 0) {
+      health = -1;
+      let data = localStorage.getItem('classment');
+      localStorage.setItem('classment', score + data);
+
       document.exitPointerLock();
       document.querySelector('.e').hidden = false;
       document.querySelector('.e').innerHTML = `
     <div class= "loose">
      <span>Vous avez perdu <br> ${score} ${classment} </span>
-     <img src=${img} alt="rank-name"/>
+     <img src=${img} alt="rank-name" style= "        filter: brightness(2);
+"/>
      <button class="n" onclick="location.reload()">Restart</button>
     <div>`;
-
-      if (classment == 'argent') {
-        argent.push(score);
-        sessionStorage.setItem(classment, argent);
-      }
     }
 
     if (health <= 30) {
@@ -403,7 +585,7 @@ export var map0 = (gl, scene, camera) => {
     }
   };
 
-  var createPhantomEnemy = () => {
+  const createPhantomEnemy = () => {
     var PHANTOM_STATE_NONE = 0;
     /*     var PHANTOM_STATE_IDLE = 1;
      */ var PHANTOM_STATE_ALERT = 2;
@@ -738,7 +920,7 @@ export var map0 = (gl, scene, camera) => {
   var staticBodies;
   var staticMeshes;
 
-  let phantomSpawnInterval = interval_create(7);
+  let phantomSpawnInterval = interval_create(2);
   var scannerSpawnInterval = interval_create(3);
 
   entity_add(
@@ -811,7 +993,108 @@ export var map0 = (gl, scene, camera) => {
         img = './images/challenger.webp';
         classment = 'challenger';
       }
-      document.querySelector('.h').textContent = Math.round(health);
+      /*       Math.round(health)
+       */ document.querySelector('.h').innerHTML = `
+       <div class = "life-barre">
+       <div class = "one"><span></span></div>
+      <div class = "two"><span></span></div>
+       <div class = "three"><span></span></div>
+       <div class = "four"><span>L</span></div>
+       <div class = "five"><span>I</span></div>
+       <div class = "six"><span>F</span></div>
+       <div class = "seven"><span>E</span></div>
+       <div class = "eight"><span></span></div>
+       <div class = "nine"><span></span></div>
+       <div class = "ten"><span></span></div>
+       </div>
+       `;
+
+      const one = document.querySelector('.one');
+      const two = document.querySelector('.two');
+      const three = document.querySelector('.three');
+      const four = document.querySelector('.four');
+      const five = document.querySelector('.five');
+      const six = document.querySelector('.six');
+      const seven = document.querySelector('.seven');
+      const eight = document.querySelector('.eight');
+      const nine = document.querySelector('.nine');
+      const ten = document.querySelector('.ten');
+
+      if (Math.round(health) > 0 && Math.round(health) <= 10) {
+        one.classList.add('red');
+      }
+      if (Math.round(health) > 10 && Math.round(health) <= 20) {
+        one.classList.add('red');
+        two.classList.add('red');
+      }
+      if (Math.round(health) > 20 && Math.round(health) <= 30) {
+        one.classList.add('red');
+        two.classList.add('red');
+        three.classList.add('red');
+      }
+      if (Math.round(health) > 30 && Math.round(health) <= 40) {
+        one.classList.add('red');
+        two.classList.add('red');
+        three.classList.add('red');
+        four.classList.add('red');
+      }
+      if (Math.round(health) > 40 && Math.round(health) <= 50) {
+        one.classList.add('orange');
+        two.classList.add('orange');
+        three.classList.add('orange');
+        four.classList.add('orange');
+        five.classList.add('orange');
+      }
+      if (Math.round(health) > 50 && Math.round(health) <= 60) {
+        one.classList.add('orange');
+        two.classList.add('orange');
+        three.classList.add('orange');
+        four.classList.add('orange');
+        five.classList.add('orange');
+        six.classList.add('orange');
+      }
+      if (Math.round(health) > 60 && Math.round(health) <= 70) {
+        one.classList.add('orange');
+        two.classList.add('orange');
+        three.classList.add('orange');
+        four.classList.add('orange');
+        five.classList.add('orange');
+        six.classList.add('orange');
+        seven.classList.add('orange');
+      }
+      if (Math.round(health) > 70 && Math.round(health) <= 80) {
+        one.classList.add('green');
+        two.classList.add('green');
+        three.classList.add('green');
+        four.classList.add('green');
+        five.classList.add('green');
+        six.classList.add('green');
+        seven.classList.add('green');
+        eight.classList.add('green');
+      }
+      if (Math.round(health) > 80 && Math.round(health) <= 90) {
+        one.classList.add('green');
+        two.classList.add('green');
+        three.classList.add('green');
+        four.classList.add('green');
+        five.classList.add('green');
+        six.classList.add('green');
+        seven.classList.add('green');
+        eight.classList.add('green');
+        nine.classList.add('green');
+      }
+      if (Math.round(health) > 90 && Math.round(health) <= 100) {
+        one.classList.add('green');
+        two.classList.add('green');
+        three.classList.add('green');
+        four.classList.add('green');
+        five.classList.add('green');
+        six.classList.add('green');
+        seven.classList.add('green');
+        eight.classList.add('green');
+        nine.classList.add('green');
+        ten.classList.add('green');
+      }
       document.querySelector('.s').innerHTML = `  
       <div class = "rank">  
       <img src=${img} alt="rank-name"/>
