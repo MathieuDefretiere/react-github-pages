@@ -35,11 +35,6 @@ import {
   vec3_transformDirection,
 } from './vec3.js';
 
-import { leheal } from './maps.js';
-
-setInterval(() => {
-  console.log(leheal);
-}, 1000);
 var gl = canvas.getContext('webgl2');
 
 gl.clearColor(0, 0, 0, 0);

@@ -36,7 +36,7 @@ var pm_airaccelerate = 1;
 
 var pm_friction = 6;
 
-var g_speed = 320;
+let g_speed = 320;
 var g_gravity = 800;
 
 var player_groundTrace_normal = vec3_clone(vec3_Y);

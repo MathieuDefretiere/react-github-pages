@@ -88,8 +88,27 @@ var _v1 = vec3_create();
 
 let classment = '';
 let img = './';
-var health = 100;
-export const leheal = health;
+let health = 100;
+let NumberHeal = 2;
+
+const btn = document.querySelector('#valid');
+
+document.body.addEventListener('keypress', e => {
+  if (NumberHeal != 0) {
+    if (e.code === 'KeyH') {
+      NumberHeal--;
+      health = 100;
+    }
+  }
+});
+/* btn.addEventListener('click', e => {
+  e.preventDefault();
+
+  g_speed = speedvalue;
+  console.log(g_speed);
+});
+console.log(g_speed);
+ */
 
 export var map0 = (gl, scene, camera) => {
   var map = object3d_create();
@@ -565,7 +584,6 @@ export var map0 = (gl, scene, camera) => {
     }
 
     if (health <= 0) {
-      health = -1;
       let data = localStorage.getItem('classment');
       localStorage.setItem('classment', score + data);
 
@@ -575,7 +593,8 @@ export var map0 = (gl, scene, camera) => {
     <div class= "loose">
      <span>Vous avez perdu <br> ${score} ${classment} </span>
      <img src=${img} alt="rank-name" style= "        filter: brightness(2);
-"/>
+     "/>
+  
      <button class="n" onclick="location.reload()">Restart</button>
     <div>`;
     }
@@ -960,9 +979,6 @@ export var map0 = (gl, scene, camera) => {
       updateShadowCamera();
 
       health = clamp(health + 1 * dt, 0, 100);
-      console.log(score);
-
-      console.log(img);
 
       if (score <= 2000) {
         classment = 'Bronze';
