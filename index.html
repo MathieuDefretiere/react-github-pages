@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet">
     <title>js13k-2021</title>
 
     <style>
@@ -60,6 +61,17 @@
         font-weight: 100;
         right: 3rem;
       }
+       .m {
+        position: absolute;
+        font-weight: 100;
+        bottom:auto ;
+      }
+       .f {
+        position: absolute;
+        font-weight: 100;
+      
+      }
+      
 
       .h {
         bottom: 3rem;
@@ -69,12 +81,27 @@
         top: 3rem;
         font-size: 2rem;
       }
-
+      .m {
+        bottom: 3rem;
+        font-size: 2rem;
+      }
+      .f {
+        bottom: 3rem;
+        left: 13rem;
+        font-size: 2rem;
+      }
+      
+      
       .h:empty,
       .s:empty {
         display: none;
       }
-
+       .m:empty {
+        display: none;
+      }
+       .f:empty {
+        display: none;
+      }
       .e {
         font-weight: 100;
         text-align: center;
@@ -111,6 +138,14 @@
         width: 200px;
         height: 200px;
       }
+      .m{
+        height: 110px;
+      
+      }
+      .f{
+        height: 110px;
+      
+      }
       .rank {
         display: flex;
         flex-direction: column;
@@ -139,36 +174,76 @@
       }
       .green {
         background-color: green;
+        
       }
       .life-barre {
+       
         border: 2px solid black;
         display: grid;
         width: 400px;
         grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
       }
+      #son {
+        height: 150px;
+        width: 150px;
+      }
+      .a {
+        position: absolute;
+        font-weight: 100;
+      
+      }
+      .v {
+        position: absolute;
+        font-weight: 100;
+      
+      }
+       .a {
+       top: 30rem;
+       left: 55rem;
+        font-size: 2rem;
+      }
+       .v {
+       top: 30rem;
+       left: 35rem;
+        font-size: 2rem;
+      }
+      #aim{
+        height: 600px;
+        width: 800px;
+      }
     </style>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
-    <h1>
-      Two<br /><span id="params">Params</span><br />Passing<br />In The<br />Night
-    </h1>
-    <div class="r material-symbols-outlined">&#18520;</div>
+ 
+<audio  src="musique.mp3" autoplay loop></audio>
 
+    <canvas id="canvas"></canvas>
+    <div id="title">
+    <h1 >
+      <span style="width:max-content;"> Two Passing Ships In The Night</span>
+     
+    </h1>
+    </div>
+    <div class="r material-symbols-outlined">&#18520;</div>
+    <div class="a"></div>
+    <div class="v"></div>
     <div class="h"></div>
     <div class="s"></div>
     <div class="e" hidden>
       <div>Game over</div>
       <button class="n" onclick="location.reload()">Restart</button>
     </div>
+    <div id="medical">hello world</div>
+ <div class="m"></div>
+  <div class="f"></div>
+    <div class="stop hidden">
+  <div class="pause-card">
+    <h2 class="pause-title">Pause</h2>
+    <p class="pause-sub">Clique n’importe où pour continuer</p>
+    <h3 class="pause-tip">💉 Appuie sur <span class="key">H</span> pour te heal (2x par partie)</h3>
+  </div>
+</div>
 
-    <div class="stop" style="display: none">
-      <h2>tu es en pause</h2>
-      <br />
-
-      <span style="color: red">Clique pour continuer à jouer</span>
-      <h3>Appuyer sur H pour vous heal, 2 fois par partie.</h3>
-    </div>
 
     <div id="params" style="display: none">p</div>
 

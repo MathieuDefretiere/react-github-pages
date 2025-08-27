@@ -78,6 +78,13 @@ import {
   vec3_Y,
   vec3_Z,
 } from './vec3.js';
+const music = new Audio("musique.mp3");
+music.loop = true;
+music.volume = 0.2;
+
+
+document.addEventListener("keydown", () => music.play());
+document.addEventListener("mousedown", () => music.play());
 
 var keys = keys_create();
 var isMouseDown = false;
@@ -92,15 +99,47 @@ let health = 100;
 let NumberHeal = 2;
 
 const btn = document.querySelector('#valid');
-
+const  medicine = './images/heal.png'
+const gun = './images/gun.png'
 document.body.addEventListener('keypress', e => {
+   const emptymedicine = './images/noheal.png'
   if (NumberHeal != 0) {
+
     if (e.code === 'KeyH') {
       NumberHeal--;
       health = 100;
+      if(NumberHeal == 1){
+        document.querySelector('.f').innerHTML = `  
+      <div>  
+      <img src=${emptymedicine} id ="son" alt="medicine"/>
+     
+      </div> `;
+      }
+      if(NumberHeal == 0){
+         document.querySelector('.m').innerHTML = `  
+      <div>  
+      <img src=${emptymedicine} id ="son" alt="medicine"/>
+     
+      </div> `;
+      }
+      
+      
     }
   }
 });
+
+   document.querySelector('.m').innerHTML = `  
+      <div>  
+      <img src=${medicine} id ="son" alt="medicine"/>
+     
+      </div> `;
+       document.querySelector('.f').innerHTML = `  
+      <div>  
+      <img src=${medicine} id = "son" alt="medicine"/>
+     
+      </div> `
+     
+
 /* btn.addEventListener('click', e => {
   e.preventDefault();
 
@@ -977,12 +1016,13 @@ export var map0 = (gl, scene, camera) => {
       Object.assign(cameraObject.position, playerMesh.position);
 
       updateShadowCamera();
-
+    
       health = clamp(health + 1 * dt, 0, 100);
 
       if (score <= 2000) {
         classment = 'Bronze';
         img = './images/iron.webp';
+        
       } else if (score > 2000 && score <= 4000) {
         img = './images/bronze.webp';
         classment = 'argent';
@@ -1117,6 +1157,9 @@ export var map0 = (gl, scene, camera) => {
       ${classment}
         ${score}
       </div> `;
+     
+      
+ 
 
       if (playerMesh.position.y <= -2048) {
         takeDamage(100);

@@ -429,16 +429,16 @@ export var greeble_create = (() => {
 })();
 
 export var phantom_create = () => {
-  var width = 40;
-  var height = 72;
-  var depth = 16;
-  var gap = 4;
+  var width = 53.5;    // 107 / 2
+var height = 91;     // 182 / 2
+var depth = 53;      // 106 / 2
+var gap = 2;         // 4 / 2
 
   var sideWidth = (width - gap) / 2;
   var sideHeight = 56;
 
   var eyeColor = vec3_create(16, 1, 1);
-  var eyeSize = 8;
+  var eyeSize = 25;
 
   var head = box(
     [width, height - sideHeight - gap, depth],

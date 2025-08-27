@@ -1,0 +1,103 @@
+#title {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: white;
+  font-family: 'Georgia', serif;
+  z-index: 9999;
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 4s;
+}
+
+#title h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  overflow: hidden;
+  border-right: .15em solid white;
+  white-space: nowrap;
+  animation: typing 3s steps(30, end), blink .7s step-end infinite;
+}
+
+#title span {
+  display: inline-block;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: white }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+.stop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.stop.hidden {
+  display: none;
+}
+
+.pause-card {
+  background: #fff;
+  padding: 1rem 20rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease;
+}
+
+.pause-title {
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.pause-sub {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.pause-tip {
+  font-size: 1rem;
+  color: #000;
+  margin-top: 1rem;
+}
+
+.key {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
