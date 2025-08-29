@@ -310,10 +310,10 @@ addEventListener('resize', () => {
 });
 const stop = document.querySelector('.stop');
 
-addEventListener('keypress', event => {
+addEventListener('keydown', event => {
   // Pause/play.
 
-  if (event.code === 'KeyP') {
+  if (event.code === 'Escape') {
     running = !running;
 
     console.log(stop);

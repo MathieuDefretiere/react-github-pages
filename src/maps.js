@@ -78,13 +78,12 @@ import {
   vec3_Y,
   vec3_Z,
 } from './vec3.js';
-const music = new Audio("musique.mp3");
+const music = new Audio('musique.mp3');
 music.loop = true;
 music.volume = 0.2;
 
-
-document.addEventListener("keydown", () => music.play());
-document.addEventListener("mousedown", () => music.play());
+document.addEventListener('keydown', () => music.play());
+document.addEventListener('mousedown', () => music.play());
 
 var keys = keys_create();
 var isMouseDown = false;
@@ -99,46 +98,42 @@ let health = 100;
 let NumberHeal = 2;
 
 const btn = document.querySelector('#valid');
-const  medicine = './images/heal.png'
-const gun = './images/gun.png'
+const medicine = './images/heal.png';
+const gun = './images/gun.png';
 document.body.addEventListener('keypress', e => {
-   const emptymedicine = './images/noheal.png'
+  const emptymedicine = './images/noheal.png';
   if (NumberHeal != 0) {
-
     if (e.code === 'KeyH') {
       NumberHeal--;
       health = 100;
-      if(NumberHeal == 1){
+      if (NumberHeal == 1) {
         document.querySelector('.f').innerHTML = `  
       <div>  
       <img src=${emptymedicine} id ="son" alt="medicine"/>
      
       </div> `;
       }
-      if(NumberHeal == 0){
-         document.querySelector('.m').innerHTML = `  
+      if (NumberHeal == 0) {
+        document.querySelector('.m').innerHTML = `  
       <div>  
       <img src=${emptymedicine} id ="son" alt="medicine"/>
      
       </div> `;
       }
-      
-      
     }
   }
 });
 
-   document.querySelector('.m').innerHTML = `  
+document.querySelector('.m').innerHTML = `  
       <div>  
       <img src=${medicine} id ="son" alt="medicine"/>
      
       </div> `;
-       document.querySelector('.f').innerHTML = `  
+document.querySelector('.f').innerHTML = `  
       <div>  
       <img src=${medicine} id = "son" alt="medicine"/>
      
-      </div> `
-     
+      </div> `;
 
 /* btn.addEventListener('click', e => {
   e.preventDefault();
@@ -186,6 +181,36 @@ export var map0 = (gl, scene, camera) => {
   var player = player_create(playerMesh, playerPhysics);
   player.scene = map;
 
+  const paramsDisplay = document.getElementById('paramsDisplay');
+  const speedvalue = document.getElementById('speed');
+  const gravityy = document.getElementById('gravity');
+
+  console.log(player);
+
+  addEventListener('keypress', event => {
+    if (event.code === 'KeyN') {
+      console.log('mmm');
+      paramsDisplay.classList.toggle('paramss');
+
+      paramsDisplay.style.position = 'absolute';
+      paramsDisplay.style.display = 'block';
+      paramsDisplay.style.top = '-347px';
+      paramsDisplay.style.left = '-680px';
+      paramsDisplay.style.width = '677px';
+      paramsDisplay.style.color = 'white';
+
+      speedvalue.addEventListener('input', e => {
+        console.log(e.target.value);
+
+        player.speed = e.target.value;
+      });
+      gravityy.addEventListener('input', e => {
+        console.log(e.target.value);
+
+        player.gravity = e.target.value;
+      });
+    }
+  });
   var score = 0;
 
   var updateShadowCamera = () => {
@@ -597,27 +622,27 @@ export var map0 = (gl, scene, camera) => {
 
     console.log(score);
 
-    if (score > 2000 && score <= 4000) {
+    if (score > 0 && score <= 33333) {
       damage = 5;
       health -= damage;
     }
-    if (score > 6000 && score <= 8000) {
+    if (score > 33333 && score <= 66666) {
       damage = 10;
       health -= damage;
     }
-    if (score > 4000 && score <= 7000) {
+    if (score > 66666 && score <= 99999) {
       damage = 12.5;
       health -= damage;
     }
-    if (score > 7000 && score <= 9000) {
+    if (score > 99999 && score <= 133332) {
       damage = 15;
       health -= damage;
     }
-    if (score > 9000 && score <= 11000) {
+    if (score > 133332 && score <= 166665) {
       damage = 17.5;
       health -= damage;
     }
-    if (score > 11000) {
+    if (score > 166665) {
       damage = 20;
       health -= damage;
     }
@@ -1016,36 +1041,35 @@ export var map0 = (gl, scene, camera) => {
       Object.assign(cameraObject.position, playerMesh.position);
 
       updateShadowCamera();
-    
+
       health = clamp(health + 1 * dt, 0, 100);
 
-      if (score <= 2000) {
+      if (score <= 33333) {
         classment = 'Bronze';
         img = './images/iron.webp';
-        
-      } else if (score > 2000 && score <= 4000) {
+      } else if (score > 33333 && score <= 66666) {
         img = './images/bronze.webp';
         classment = 'argent';
-      } else if (score > 4000 && score <= 6000) {
+      } else if (score > 66666 && score <= 99999) {
         img = './images/gold.webp';
 
         classment = 'gold';
-      } else if (score > 6000 && score <= 8000) {
+      } else if (score > 99999 && score <= 133332) {
         img = './images/platine.webp';
         classment = 'platine';
-      } else if (score > 8000 && score <= 10000) {
+      } else if (score > 133332 && score <= 166665) {
         img = './images/emeraude.webp';
         classment = 'emeraude';
-      } else if (score > 10000 && score <= 12000) {
+      } else if (score > 166665 && score <= 199998) {
         img = './images/diams.webp';
-        classment = 'platine';
-      } else if (score > 10000 && score <= 11000) {
+        classment = 'diams';
+      } else if (score > 199998 && score <= 223331) {
         img = './images/master.webp';
         classment = 'master';
-      } else if (score > 11000 && score <= 13000) {
+      } else if (score > 223331 && score <= 264664) {
         img = './images/grandmaster.png';
         classment = 'grandmaster';
-      } else if (score > 13000) {
+      } else if (score > 264664) {
         img = './images/challenger.webp';
         classment = 'challenger';
       }
@@ -1055,9 +1079,9 @@ export var map0 = (gl, scene, camera) => {
        <div class = "one"><span></span></div>
       <div class = "two"><span></span></div>
        <div class = "three"><span></span></div>
-       <div class = "four"><span>L</span></div>
-       <div class = "five"><span>I</span></div>
-       <div class = "six"><span>F</span></div>
+       <div class = "four"><span></span></div>
+       <div class = "five"><span>V</span></div>
+       <div class = "six"><span>I</span></div>
        <div class = "seven"><span>E</span></div>
        <div class = "eight"><span></span></div>
        <div class = "nine"><span></span></div>
@@ -1157,9 +1181,6 @@ export var map0 = (gl, scene, camera) => {
       ${classment}
         ${score}
       </div> `;
-     
-      
- 
 
       if (playerMesh.position.y <= -2048) {
         takeDamage(100);

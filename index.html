@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
     <title>js13k-2021</title>
 
     <style>
@@ -61,17 +61,15 @@
         font-weight: 100;
         right: 3rem;
       }
-       .m {
+      .m {
         position: absolute;
         font-weight: 100;
-        bottom:auto ;
+        bottom: auto;
       }
-       .f {
+      .f {
         position: absolute;
         font-weight: 100;
-      
       }
-      
 
       .h {
         bottom: 3rem;
@@ -90,16 +88,15 @@
         left: 13rem;
         font-size: 2rem;
       }
-      
-      
+
       .h:empty,
       .s:empty {
         display: none;
       }
-       .m:empty {
+      .m:empty {
         display: none;
       }
-       .f:empty {
+      .f:empty {
         display: none;
       }
       .e {
@@ -120,13 +117,13 @@
       }
       .stop {
         padding: 15px;
-        background-color: rgba(15, 35, 48, 0.459);
+        background-color: rgb(250, 250, 250);
         height: 200px;
         display: flex;
         border-radius: 20px;
         justify-content: center;
         align-items: center;
-        color: white;
+        color: rgb(0, 0, 0);
         text-align: center;
         position: absolute;
         top: 50%;
@@ -138,13 +135,11 @@
         width: 200px;
         height: 200px;
       }
-      .m{
+      .m {
         height: 110px;
-      
       }
-      .f{
+      .f {
         height: 110px;
-      
       }
       .rank {
         display: flex;
@@ -174,10 +169,8 @@
       }
       .green {
         background-color: green;
-        
       }
       .life-barre {
-       
         border: 2px solid black;
         display: grid;
         width: 400px;
@@ -190,41 +183,37 @@
       .a {
         position: absolute;
         font-weight: 100;
-      
       }
       .v {
         position: absolute;
         font-weight: 100;
-      
       }
-       .a {
-       top: 30rem;
-       left: 55rem;
+      .a {
+        top: 30rem;
+        left: 55rem;
         font-size: 2rem;
       }
-       .v {
-       top: 30rem;
-       left: 35rem;
+      .v {
+        top: 30rem;
+        left: 36rem;
         font-size: 2rem;
       }
-      #aim{
+      #aim {
         height: 600px;
         width: 800px;
       }
     </style>
   </head>
   <body>
- 
-<audio  src="musique.mp3" autoplay loop></audio>
+    <audio src="musique.mp3" autoplay loop></audio>
 
     <canvas id="canvas"></canvas>
     <div id="title">
-    <h1 >
-      <span style="width:max-content;"> Two Passing Ships In The Night</span>
-     
-    </h1>
+      <h1>
+        <span style="width: max-content"> Two Passing Ships In The Night</span>
+      </h1>
     </div>
-    <div class="r material-symbols-outlined">&#18520;</div>
+    <div class="r material-symbols-outlined">&#11041;</div>
     <div class="a"></div>
     <div class="v"></div>
     <div class="h"></div>
@@ -234,16 +223,24 @@
       <button class="n" onclick="location.reload()">Restart</button>
     </div>
     <div id="medical">hello world</div>
- <div class="m"></div>
-  <div class="f"></div>
+    <div class="m"></div>
+    <div class="f"></div>
     <div class="stop hidden">
-  <div class="pause-card">
-    <h2 class="pause-title">Pause</h2>
-    <p class="pause-sub">Clique n’importe où pour continuer</p>
-    <h3 class="pause-tip">💉 Appuie sur <span class="key">H</span> pour te heal (2x par partie)</h3>
-  </div>
-</div>
+      <div class="pause-card">
+        <h2 class="pause-title">Pause</h2>
+        <p class="pause-sub">Clique n’importe où pour continuer</p>
+        <h3 class="pause-tip">
+          💉 Appuie sur <span class="key">H</span> pour te heal (2x par partie)
+        </h3>
+        <div id="paramsDisplay" style="display: none">
+          <label for="speed">Vitesse de deplacement</label>
+          <input type="range" id="speed" min="0" max="3000" value="320" />
+          <label for="gravity">Gravité du perso</label>
 
+          <input type="range" id="gravity" min="100" max="800" value="800" />
+        </div>
+      </div>
+    </div>
 
     <div id="params" style="display: none">p</div>
 
