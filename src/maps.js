@@ -423,10 +423,10 @@ export var map0 = (gl, scene, camera) => {
     mesh_create(starfield_create(15360, 512), starfieldMaterial),
   );
 
-  var dreadnoughtMaterial = material_create();
+  dreadnoughtMaterial = material_create();
   vec3_setScalar(dreadnoughtMaterial.specular, 1);
   dreadnoughtMaterial.fog = false;
-  var dreadnoughtMesh = mesh_create(dreadnought_create(), dreadnoughtMaterial);
+  dreadnoughtMesh = mesh_create(dreadnought_create(), dreadnoughtMaterial);
   vec3_set(dreadnoughtMesh.position, 512, 1536, -6144);
   object3d_rotateY(dreadnoughtMesh, -Math.PI / 2);
   object3d_rotateX(dreadnoughtMesh, -Math.PI / 8);
