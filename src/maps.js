@@ -75,7 +75,7 @@ import {
   vec3_Y,
   vec3_Z,
 } from './vec3.js';
-const music = new Audio('musique.mp3');
+var music = new Audio('musique.mp3');
 music.loop = true;
 music.volume = 0.2;
 
@@ -89,14 +89,14 @@ var _q0 = quat_create();
 var _v0 = vec3_create();
 var _v1 = vec3_create();
 
-let classment = '';
-let img = './';
-let health = 100;
-let NumberHeal = 2;
+var classment = '';
+var img = './';
+var health = 100;
+var NumberHeal = 2;
 
-const medicine = './images/heal.png';
+var medicine = './images/heal.png';
 document.body.addEventListener('keypress', e => {
-  const emptymedicine = './images/noheal.png';
+  var emptymedicine = './images/noheal.png';
   if (NumberHeal != 0) {
     if (e.code === 'KeyH') {
       NumberHeal--;
@@ -176,9 +176,9 @@ export var map0 = (gl, scene, camera) => {
   var player = player_create(playerMesh, playerPhysics);
   player.scene = map;
 
-  const paramsDisplay = document.getElementById('paramsDisplay');
-  const speedvalue = document.getElementById('speed');
-  const gravityy = document.getElementById('gravity');
+  var paramsDisplay = document.getElementById('paramsDisplay');
+  var speedvalue = document.getElementById('speed');
+  var gravityy = document.getElementById('gravity');
 
   console.log(player);
 
@@ -609,7 +609,6 @@ export var map0 = (gl, scene, camera) => {
     return bullet;
   };
 
-  let argent = [];
   var takeDamage = (damage = 2) => {
     health -= damage;
 
@@ -663,7 +662,7 @@ export var map0 = (gl, scene, camera) => {
     }
   };
 
-  const createPhantomEnemy = () => {
+  var createPhantomEnemy = () => {
     var PHANTOM_STATE_NONE = 0;
     /*     var PHANTOM_STATE_IDLE = 1;
      */ var PHANTOM_STATE_ALERT = 2;
@@ -1084,16 +1083,16 @@ export var map0 = (gl, scene, camera) => {
        </div>
        `;
 
-      const one = document.querySelector('.one');
-      const two = document.querySelector('.two');
-      const three = document.querySelector('.three');
-      const four = document.querySelector('.four');
-      const five = document.querySelector('.five');
-      const six = document.querySelector('.six');
-      const seven = document.querySelector('.seven');
-      const eight = document.querySelector('.eight');
-      const nine = document.querySelector('.nine');
-      const ten = document.querySelector('.ten');
+      var one = document.querySelector('.one');
+      var two = document.querySelector('.two');
+      var three = document.querySelector('.three');
+      var four = document.querySelector('.four');
+      var five = document.querySelector('.five');
+      var six = document.querySelector('.six');
+      var seven = document.querySelector('.seven');
+      var eight = document.querySelector('.eight');
+      var nine = document.querySelector('.nine');
+      var ten = document.querySelector('.ten');
 
       if (Math.round(health) > 0 && Math.round(health) <= 10) {
         one.classList.add('red');

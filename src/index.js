@@ -308,7 +308,7 @@ addEventListener('resize', () => {
   setSize(innerWidth, innerHeight);
   render();
 });
-const stop = document.querySelector('.stop');
+var stop = document.querySelector('.stop');
 
 addEventListener('keydown', event => {
   // Pause/play.
