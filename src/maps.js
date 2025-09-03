@@ -415,7 +415,7 @@ export var map0 = (gl, scene, camera) => {
   var dreadnoughtMaterial = material_create();
   vec3_setScalar(dreadnoughtMaterial.specular, 1);
   dreadnoughtMaterial.fog = false;
-  var starfieldMaterial = material_create();
+  starfieldMaterial = material_create();
   vec3_setScalar(starfieldMaterial.emissive, 1);
   starfieldMaterial.fog = false;
   object3d_add(
@@ -997,7 +997,7 @@ export var map0 = (gl, scene, camera) => {
   var staticBodies;
   var staticMeshes;
 
-  let phantomSpawnInterval = interval_create(2);
+  var phantomSpawnInterval = interval_create(2);
   var scannerSpawnInterval = interval_create(3);
 
   entity_add(
@@ -1258,7 +1258,7 @@ export var map0 = (gl, scene, camera) => {
       }
     }),
   );
-  addEventListener('mousedown', event => (isMouseDown = true));
+  addEventListener('mousedown', () => (isMouseDown = true));
   addEventListener('mouseup', () => (isMouseDown = false));
 
   if (DEBUG) {
