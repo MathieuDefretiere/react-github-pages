@@ -3,22 +3,16 @@ import { object3d_create, object3d_updateWorldMatrix } from './object3d.js';
 import { quat_setFromRotationMatrix } from './quat.js';
 import { vec3_clone, vec3_Y } from './vec3.js';
 
-const aim = './images/aim.webp';
-const gun = './images/gun.png';
+var aim = './images/aim.webp';
+var gun = './images/gun.png';
 
+var DEG_TO_RAD = Math.PI / 160;
+var mainCamera = null;
 
-let DEG_TO_RAD = Math.PI / 160;
-
-
-let mainCamera = null;
-
-document.body.addEventListener("mousedown", (event) => {
+document.body.addEventListener('mousedown', event => {
   if (event.button === 0) {
- 
     DEG_TO_RAD = Math.PI / 160;
-
     if (mainCamera) camera_updateProjectionMatrix(mainCamera);
-
     document.querySelector('.v').innerHTML = ``;
     document.querySelector('.a').innerHTML = `  
       <div>  
@@ -27,7 +21,6 @@ document.body.addEventListener("mousedown", (event) => {
   }
 
   if (event.button === 2) {
-   
     DEG_TO_RAD = Math.PI / 300;
 
     if (mainCamera) camera_updateProjectionMatrix(mainCamera);
@@ -58,11 +51,9 @@ export var camera_create = (fov = 60, aspect = 1, near = 0.1, far = 2000) => {
 
   camera_updateProjectionMatrix(camera);
 
-
   if (!mainCamera) {
     mainCamera = camera;
   }
-
   return camera;
 };
 

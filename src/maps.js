@@ -642,7 +642,7 @@ export var map0 = (gl, scene, camera) => {
     }
 
     if (health <= 0) {
-      let data = localStorage.getItem('classment');
+      var data = localStorage.getItem('classment');
       localStorage.setItem('classment', score + data);
 
       document.exitPointerLock();
@@ -1258,8 +1258,7 @@ export var map0 = (gl, scene, camera) => {
       }
     }),
   );
-
-  addEventListener('mousedown', () => (isMouseDown = true));
+  addEventListener('mousedown', event => (isMouseDown = true));
   addEventListener('mouseup', () => (isMouseDown = false));
 
   if (DEBUG) {
