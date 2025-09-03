@@ -1062,7 +1062,7 @@ export var map0 = (gl, scene, camera) => {
         classment = 'emeraude';
       } else if (score > 166665 && score <= 199998) {
         img = './images/diams.webp';
-        classment = 'diams';
+        classment = 'diamant';
       } else if (score > 199998 && score <= 223331) {
         img = './images/master.webp';
         classment = 'master';
