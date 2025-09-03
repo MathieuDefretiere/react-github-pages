@@ -1269,7 +1269,7 @@ export var map0 = (gl, scene, camera) => {
         vec3_set(ray.direction, 0, 0, -1),
         camera.quaternion,
       );
-      var staticMeshes = staticBodies?.map(body => body.parent) || [];
+      staticMeshes = staticBodies?.map(body => body.parent) || [];
       staticMeshes = [];
       object3d_traverse(
         map,
