@@ -1,8 +1,6 @@
 import { findTarget, getRange, RANGE_MELEE } from './ai.js';
 import { playEnemyDeath, playShoot } from './audio.js';
 import { boxGeom_create } from './boxGeom.js';
-import { nx_ny, ny } from './boxIndices.js';
-import { align } from './boxTransforms.js';
 import { DEBUG, gravity } from './constants.js';
 import { light_create } from './directionalLight.js';
 import { lightShadow_updateMatrices } from './directionalLightShadow.js';
@@ -23,7 +21,6 @@ import {
   phantom_create,
   platform_create,
   scanner_create,
-  spaceBetween,
   starfield_create,
 } from './models.js';
 import {
@@ -97,9 +94,7 @@ let img = './';
 let health = 100;
 let NumberHeal = 2;
 
-const btn = document.querySelector('#valid');
 const medicine = './images/heal.png';
-const gun = './images/gun.png';
 document.body.addEventListener('keypress', e => {
   const emptymedicine = './images/noheal.png';
   if (NumberHeal != 0) {
