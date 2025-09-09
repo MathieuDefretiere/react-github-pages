@@ -8,7 +8,7 @@
 
 # 🛠️ Installation & Lancement :
 
-**git clone git@github.com:MathieuDefretiere/react-github-pages.git**
+**git clone git@github.com:MathieuDefretiere/Ubisoft-SpaceShip.git**
 
 **cd react-github-pages**
 
@@ -16,4 +16,4 @@
 
 **npm run dev**
 
-![CHEESE!](./react-github-pages/images//img.png)
+![CHEESE!](./Ubisoft-SpaceShip/img.png)
