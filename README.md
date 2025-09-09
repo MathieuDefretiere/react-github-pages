@@ -1,4 +1,4 @@
-# ☄️ Ubisoft – Jeu Two Ships Passing In The Night en Javascript
+## ☄️ Ubisoft : Jeu Two Ships Passing In The Night
 
 ## 👤 Membres du projet :
 
@@ -8,12 +8,12 @@
 
 # 🛠️ Installation & Lancement :
 
-## git clone git@github.com:MathieuDefretiere/react-github-pages.git
+**git clone git@github.com:MathieuDefretiere/react-github-pages.git**
 
-## cd react-github-pages
+**cd react-github-pages**
 
-## npm install
+**npm install**
 
-## npm run dev
+**npm run dev**
 
-![CHEESE!](./react-github-pages/images/img.png)
+![CHEESE!](./react-github-pages/images//img.png)
