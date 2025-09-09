@@ -10,7 +10,7 @@
 
 **git clone git@github.com:MathieuDefretiere/Ubisoft-SpaceShip.git**
 
-**cd react-github-pages**
+**cd Ubisoft-SpaceShip**
 
 **npm install**
 
