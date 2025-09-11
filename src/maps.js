@@ -172,7 +172,6 @@ export var map0 = (gl, scene, camera) => {
   object3d_add(map, playerMesh);
 
   var playerPhysics = get_physics_component(playerMesh);
-  playerPhysics.update = () => {};
   var player = player_create(playerMesh, playerPhysics);
   player.scene = map;
 

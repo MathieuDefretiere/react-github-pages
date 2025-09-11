@@ -39,7 +39,9 @@ export var physics_create = (entity, physics) => {
     physics,
     boundingBox: box3_setFromObject(box3_create(), entity),
     velocity: vec3_create(),
-    collide() {},
+    collide() {
+      /* no empty */
+    },
   };
   return component_create(
     dt => vec3_addScaledVector(entity.position, component.velocity, dt),
