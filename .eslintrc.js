@@ -11,10 +11,21 @@ module.exports = {
   },
   plugins: ['simple-import-sort'],
   rules: {
-    'arrow-body-style': ['error', 'as-needed'],
-    'func-style': 'error',
-    'no-restricted-syntax': ['error', 'VariableDeclaration[kind!="var"]'],
-    'object-shorthand': 'error',
-    'simple-import-sort/imports': 'error',
+    'arrow-body-style': [
+      'error',
+      'as-needed',
+    ] /* pas utiliser d accolage si pas necessaire */,
+    'func-style': 'error' /* faire function fleché */,
+    'no-restricted-syntax': [
+      'error',
+      'VariableDeclaration[kind!="var"]',
+    ] /* utiliser var pa let const */,
+    'object-shorthand': 'error' /* rendre plus court les objets */,
+    'simple-import-sort/imports':
+      'error' /* import doivent etre dans l ordre */,
+    'no-empty-function': 'error',
+    'curly': 'error', /* for et if avec accolage */
+     'no-undef': 'error', /* si pas defini variable */
+    
   },
 };
