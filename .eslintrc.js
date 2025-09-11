@@ -24,7 +24,6 @@ module.exports = {
     'simple-import-sort/imports':
       'error' /* import doivent etre dans l ordre */,
     'no-empty-function': 'error',
-    'curly': 'error', /* for et if avec accolage */
      'no-undef': 'error', /* si pas defini variable */
     
   },
